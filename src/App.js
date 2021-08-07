@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect, useContext } from "react";
+import Component from "./components/Component";
+import Always from './components/Always'
+import { ThemeContext } from "./context/Theme";
+
+import style from "./App.css";
 
 function App() {
+  let [loading, setLoading] = useState(true);
+  const { theme, changeTheme } = useContext(ThemeContext);
+  const cssVars = styles(theme);
+
+  useEffect(() => {
+    // setTimeout(() => {
+    setLoading(false);
+    // }, 1000);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main style={cssVars} className="App">
+      {loading && <div className="loading">Loading...</div>}
+      {!loading && <Component />}
+      <Always />
+    </main>
   );
 }
 
 export default App;
+
+const styles = (theme) => ({
+  "--clr-main-text": theme.mainText,
+  "--clr-neutral-900": theme.secondary,
+});

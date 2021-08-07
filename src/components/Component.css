@@ -1,0 +1,9 @@
+.theme{
+    padding:1rem 2rem;
+    cursor:pointer;
+    margin:2rem;
+}
+
+h1{
+    color:var(--clr-main-text)
+}
